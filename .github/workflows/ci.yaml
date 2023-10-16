@@ -21,11 +21,11 @@ jobs:
         uses: actions/setup-python@v4
         with:
           python-version: "3.10"
-      
+
       - name: Attempt install
         run: |
           pip install .
-      
+
       - name: Smoke test CLI help
         run: |
           assignment-checker --help
