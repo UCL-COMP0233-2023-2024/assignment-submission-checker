@@ -6,51 +6,14 @@ import pytest
 from assignment_submission_checker.assignment import Assignment
 
 from .. import DATA_DIR
+from ._base_testclass import BaseAssignmentTestingClass
 
 
-class TestGitDetection:
-    """ """
-
-    @pytest.fixture(scope="class")  # Does this work with subclassing??
-    def placeholder_assignment(self, tool: Literal["tar", "zip"] = "tar") -> Assignment:
-        """
-        Standard template assignment that can be used for testing.
-
-        It assumes the following directory and file structure is needed for the assignment:
-
-        candidate_number/
-        - assignment/
-        - - .git/
-        - - code_file_1.py
-        - - code_file_2.py
-        - - data/
-        - - - data_file_1.dat
-        """
-        return Assignment(
-            "Test assignment object",
-            git_root=Path("assignment"),
-            archive_tool=tool,
-            expected_files=[
-                "assignment/code_file_1.py",
-                "assignment/code_file_2.py",
-                "assignment/data/data_file_1.dat",
-            ],
-        )
-
-    @pytest.fixture(
-        autouse=True
-    )  # Refactor this into a base class, along with the placeholder fixture above, then subclass?
-    @pytest.mark.parametrize("tool", ["tar"])
-    def extract_run_teardown(self, placeholder_assignment: Assignment, data_path: Path) -> None:
-        """"""
-        # Set the target assignment to that which was passed in
-        placeholder_assignment.set_target_archive(data_path)
-        # Extract the target directory to a temporary location
-        placeholder_assignment.extract_to_temp_dir()
-        # Run the wrapped test
-        yield
-        # Remove the temporary directory that was created
-        placeholder_assignment.purge_tmp_dir()
+class TestGitDetection(BaseAssignmentTestingClass):
+    """
+    Testing class for the Assignment methods that handle detection of the submission's
+    git repository and the state thereof.
+    """
 
     @pytest.mark.parametrize(
         "data_path, repo_should_be_found, repo_should_be_clean",
@@ -71,7 +34,13 @@ class TestGitDetection:
         repo_should_be_found: bool,
         repo_should_be_clean: bool,
     ):
-        """ """
+        """
+        Check that:
+        - git repositories are searched for in the correct location
+        - git repositories can be detected as clean / dirty
+        - help messages are returned in the event that there is something that
+        needs to be fixed in the assignment.
+        """
 
         # Run the check_for_git_root method
         obtained_result = placeholder_assignment.check_for_git_root()
