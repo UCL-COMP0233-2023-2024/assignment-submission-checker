@@ -14,8 +14,5 @@ def on_readonly_error(f: Callable[[Path], None], path: Path, exc_info):
 
     Usage : ``shutil.rmtree(path, onerror=on_readonly_error)``
     """
-    if not os.access(path, os.W_OK):
-        os.chmod(path, stat.S_IWRITE)
-        f(path)
-    else:
-        raise
+    os.chmod(path, stat.S_IWRITE)
+    f(path)
