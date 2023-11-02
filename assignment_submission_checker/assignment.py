@@ -54,6 +54,9 @@ class Assignment:
             datetime.utcnow().strftime("%Y%m%d%H%M%S")
             + "".join(choices(ascii_letters + digits, k=16))
         )
+        # Force absolute pathing to the temporary directory
+        self.tmp_dir = (Path(os.getcwd()) / self.tmp_dir).resolve()
+
         self.git_root = Path(self.git_root)
 
         if self.archive_tool not in ["tar", "zip"]:
