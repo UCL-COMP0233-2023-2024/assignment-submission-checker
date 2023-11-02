@@ -1,4 +1,5 @@
 from pathlib import Path
+from time import sleep
 from typing import Literal
 
 import pytest
@@ -79,3 +80,5 @@ class BaseAssignmentTestingClass:
         yield
         # Remove the temporary directory that was created
         placeholder_assignment.purge_tmp_dir()
+        # Sleep for a few seconds to prevent the next test starting and re-opening the temporary directory
+        sleep(1.0)
