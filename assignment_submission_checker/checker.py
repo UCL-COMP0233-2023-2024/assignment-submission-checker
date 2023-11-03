@@ -40,6 +40,40 @@ def check_archive_name(
     return name_is_ok
 
 
+def check_archive_name_group(
+    archive: Path, verbose: bool = True, expected_group_number: str = None
+) -> bool:
+    """ """
+    archive_name = archive.stem.split(".")[0]  # In case of multiple . characters
+    name_is_ok = True
+
+    # archive_name should match working_group_XX.tar.gz
+    if archive_name[:-2] != "working_group_":
+        print_warning(
+            f"Your submission is named {archive_name}: this does not match the pattern working_group_XX",
+            "The archive should be named as above with your group number (2 digits)",
+        )
+        name_is_ok = False
+    elif expected_group_number is not None:
+        if archive_name[-2:] != expected_group_number:
+            print_warning(
+                "Submission name and group number do not match.",
+                f"Submission is named {archive_name} but your group number is {expected_group_number}.",
+            )
+            name_is_ok = False
+        elif verbose:
+            print_to_console(
+                f"Candidate number {expected_group_number} matches submission folder name."
+            )
+    elif verbose:
+        print_to_console(
+            f"Submission folder name is valid.",
+            f"NOTE: your group number was inferred as {archive_name[-2:]}, please check this is the case.",
+        )
+
+    return name_is_ok
+
+
 def check_submission(
     A: Assignment, archive_location: Path = None, ignore_extra_files: bool = False
 ) -> None:
