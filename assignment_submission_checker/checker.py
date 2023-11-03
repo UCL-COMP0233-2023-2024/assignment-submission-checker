@@ -104,7 +104,15 @@ def check_submission(
     not_found, not_expected = A.search_for_missing_files()
     if not_found:
         print_error("The following files are missing from your submission:", *not_found)
-    if not_expected and not ignore_extra_files:
+    if A.group_assignment and (not_expected and not ignore_extra_files):
+        # In the group assignment, there is more freedom, so phrase the unexpected files a bit more gently.
+        print_warning(
+            "The following files were included in your submission:",
+            "Please check that you expect these files to be included in your submission.",
+            *not_expected,
+        )
+    if (not A.group_assignment) and (not_expected and not ignore_extra_files):
+        # In individual coursework, structure is more strict. Phrase extra files message a bit more harshly.
         print_warning(
             "Unexpected files in submission.",
             "The following files were found in your submission, but were not expected. This might be intentional (EG you have additional data files for your tests), but please double check the list below:",
