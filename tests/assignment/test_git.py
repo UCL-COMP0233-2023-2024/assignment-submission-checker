@@ -6,7 +6,7 @@ import pytest
 from assignment_submission_checker.assignment import Assignment
 
 from .. import DATA_DIR
-from ._base_testclass import BaseAssignmentTestingClass
+from ._base_testclass import BaseAssignmentTestingClass, placeholder_assignment
 
 
 class TestGitDetection(BaseAssignmentTestingClass):

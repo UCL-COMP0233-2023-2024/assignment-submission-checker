@@ -6,6 +6,33 @@ import pytest
 from assignment_submission_checker.assignment import Assignment
 
 
+@pytest.fixture(scope="function")
+def placeholder_assignment(tool: Literal["tar", "zip"] = "tar") -> Assignment:
+    """
+    Standard template assignment that can be used for testing.
+
+    It assumes the following directory and file structure is needed for the assignment:
+
+    candidate_number/
+    - assignment/
+    - - .git/
+    - - code_file_1.py
+    - - code_file_2.py
+    - - data/
+    - - - data_file_1.dat
+    """
+    return Assignment(
+        "Test assignment object",
+        git_root=Path("assignment"),
+        archive_tool=tool,
+        expected_files=[
+            Path("assignment/code_file_1.py"),
+            Path("assignment/code_file_2.py"),
+            Path("assignment/data/data_file_1.dat"),
+        ],
+    )
+
+
 class BaseAssignmentTestingClass:
     """
     Base class that provides a framework for testing the Assignment class.
@@ -31,32 +58,6 @@ class BaseAssignmentTestingClass:
     provided, extract it, run the wrapped test, and then handle removal of the
     extracted files (regardless of test result).
     """
-
-    @pytest.fixture(scope="function")
-    def placeholder_assignment(self, tool: Literal["tar", "zip"] = "tar") -> Assignment:
-        """
-        Standard template assignment that can be used for testing.
-
-        It assumes the following directory and file structure is needed for the assignment:
-
-        candidate_number/
-        - assignment/
-        - - .git/
-        - - code_file_1.py
-        - - code_file_2.py
-        - - data/
-        - - - data_file_1.dat
-        """
-        return Assignment(
-            "Test assignment object",
-            git_root=Path("assignment"),
-            archive_tool=tool,
-            expected_files=[
-                Path("assignment/code_file_1.py"),
-                Path("assignment/code_file_2.py"),
-                Path("assignment/data/data_file_1.dat"),
-            ],
-        )
 
     @pytest.fixture(
         autouse=True, scope="function"
