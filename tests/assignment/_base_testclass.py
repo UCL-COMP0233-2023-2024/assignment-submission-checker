@@ -32,7 +32,7 @@ class BaseAssignmentTestingClass:
     extracted files (regardless of test result).
     """
 
-    @pytest.fixture(scope="class")
+    @pytest.fixture(scope="function")
     def placeholder_assignment(self, tool: Literal["tar", "zip"] = "tar") -> Assignment:
         """
         Standard template assignment that can be used for testing.
