@@ -138,7 +138,6 @@ class Assignment:
         Remove (if it exists) the temporary directory.
         """
         if os.path.exists(self.tmp_dir) and os.path.isdir(self.tmp_dir):
-            # shutil.rmtree(self.tmp_dir)
             shutil.rmtree(self.tmp_dir, onerror=on_readonly_error)
 
         return
