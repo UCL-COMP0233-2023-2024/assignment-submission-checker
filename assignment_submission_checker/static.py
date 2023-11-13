@@ -19,6 +19,7 @@ COMP0233_2324_A2 = Assignment(
     name="COMP0233 Assignment 2: Planning Journeys with Service Disruptions (2023/24)",
     git_root=Path("repository"),
     archive_tool="tar",
+    group_assignment=True,
     expected_files=[
         Path("repository/pyproject.toml"),
         Path("efficiency/distant_neighbours_times.md"),
