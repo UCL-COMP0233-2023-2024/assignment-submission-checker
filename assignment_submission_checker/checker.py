@@ -51,7 +51,7 @@ def check_archive_name_group(
     if archive_name[:-2] != "working_group_":
         print_warning(
             f"Your submission is named {archive_name}: this does not match the pattern working_group_XX",
-            "The archive should be named as above with your group number (2 digits)",
+            "The archive should be named as above with your group number (2 digits, leading 0s if necessary)",
         )
         name_is_ok = False
     elif expected_group_number is not None:
