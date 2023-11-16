@@ -51,6 +51,18 @@ def check_archive_name_group(
     # XX might have special characters, in which case we need to catch those
     split_archive_name = archive_name.split("_")
     group_id = split_archive_name[-1]
+
+    # We also need to check if the expected group number was input as a single digit or not
+    # They should use the 2-digit code, but just in case we will catch
+    if expected_group_number is not None:
+        if expected_group_number.isdigit() and len(expected_group_number) == 1:
+            print_warning(
+                f"You have provided your expected group number as {expected_group_number} - this is not a 2-digit number.",
+                f"The checker will continue, but will be using an expected group number of {'0' + expected_group_number}",
+                f"We recommend you pass in the full group number (with leading zeros) in future.",
+            )
+            expected_group_number = "0" + expected_group_number
+
     if (
         (split_archive_name[0] != "working")
         or (split_archive_name[1] != "group")
@@ -58,7 +70,12 @@ def check_archive_name_group(
     ):
         print_warning(
             f"Your submission is named {archive_name}: this does not match the pattern working_group_XX",
-            "The archive should be named as above with your group number (2 digits, leading 0s if necessary)",
+        )
+        name_is_ok = False
+    elif group_id.isdigit() and len(group_id) == 1:
+        print_warning(
+            f"Your group number is provided as a single digit ({group_id}).",
+            "For group numbers less than 10, you should append a leading 0 to your group number to match the pattern pattern working_group_XX",
         )
         name_is_ok = False
     elif expected_group_number is not None:
