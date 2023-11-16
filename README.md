@@ -175,4 +175,4 @@ Submission is named working_group_01 but your group number is 10.
 
 Previous versions of this package are listed below; along with the corresponding assignment they validated against, if this was different to the previous version.
 
-- v2023.01.0: Configured for COMP0233, assignment 01.
+- v0.1.0: Configured for COMP0233, assignment 01.
