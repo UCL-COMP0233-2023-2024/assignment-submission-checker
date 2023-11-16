@@ -64,7 +64,9 @@ You might consider using the `--ignore-extra-files` flag if you are confident th
 
 The latest version of this package is configured to validate a submission for:
 
-- COMP0233, academic year 2023/24, Assignment 1.
+- COMP0233, academic year 2023/24, Assignment 02.
+
+You may wish to [review previous versions](#changelog) if you are looking for a different assignment.
 
 ## Installation
 
@@ -172,3 +174,5 @@ Submission is named working_group_01 but your group number is 10.
 ## Changelog
 
 Previous versions of this package are listed below; along with the corresponding assignment they validated against, if this was different to the previous version.
+
+- v2023.01.0: Configured for COMP0233, assignment 01.
