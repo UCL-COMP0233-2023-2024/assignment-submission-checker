@@ -160,12 +160,12 @@ For group assignments:
 
 ```bash
 $ assignment-checker -c 01 ./working_group_01.tar.gz
-Candidate number 01 matches submission folder name.
+Group number 01 matches submission folder name.
 $ assignment-checker -c 10 ./working_group_01.tar.gz
 _________
 ! WARNING !
-Submission name and candidate number do not match.
-Submission is named working_group_01 but your candidate number is 10.
+Submission name and group number do not match.
+Submission is named working_group_01 but your group number is 10.
 ---------------------
 ```
 

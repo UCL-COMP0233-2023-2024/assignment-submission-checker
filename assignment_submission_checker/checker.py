@@ -48,14 +48,21 @@ def check_archive_name_group(
     name_is_ok = True
 
     # archive_name should match working_group_XX.tar.gz
-    if archive_name[:-2] != "working_group_":
+    # XX might have special characters, in which case we need to catch those
+    split_archive_name = archive_name.split("_")
+    group_id = split_archive_name[-1]
+    if (
+        (split_archive_name[0] != "working")
+        or (split_archive_name[1] != "group")
+        or (len(split_archive_name) != 3)
+    ):
         print_warning(
             f"Your submission is named {archive_name}: this does not match the pattern working_group_XX",
             "The archive should be named as above with your group number (2 digits, leading 0s if necessary)",
         )
         name_is_ok = False
     elif expected_group_number is not None:
-        if archive_name[-2:] != expected_group_number:
+        if group_id != expected_group_number:
             print_warning(
                 "Submission name and group number do not match.",
                 f"Submission is named {archive_name} but your group number is {expected_group_number}.",
@@ -63,12 +70,12 @@ def check_archive_name_group(
             name_is_ok = False
         elif verbose:
             print_to_console(
-                f"Candidate number {expected_group_number} matches submission folder name."
+                f"Group number {expected_group_number} matches submission folder name."
             )
     elif verbose:
         print_to_console(
             f"Submission folder name is valid.",
-            f"NOTE: your group number was inferred as {archive_name[-2:]}, please check this is the case.",
+            f"NOTE: your group number was inferred as {group_id}, please check this is the case.",
         )
 
     return name_is_ok
@@ -107,8 +114,8 @@ def check_submission(
     if A.group_assignment and (not_expected and not ignore_extra_files):
         # In the group assignment, there is more freedom, so phrase the unexpected files a bit more gently.
         print_warning(
-            "The following files were included in your submission:",
-            "Please check that you expect these files to be included in your submission.",
+            "The following files were included in your submission.",
+            "Please check that you expect them to be there:",
             *not_expected,
         )
     if (not A.group_assignment) and (not_expected and not ignore_extra_files):
