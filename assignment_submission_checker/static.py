@@ -21,7 +21,6 @@ COMP0233_2324_A2 = Assignment(
     archive_tool="tar",
     group_assignment=True,
     expected_files=[
-        Path("repository/pyproject.toml"),
         Path("efficiency/distant_neighbours_times.md"),
         Path("efficiency/distant_neighbours_plot.png"),
         Path("efficiency/distant_neighbours_efficiency.py"),
